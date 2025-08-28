@@ -1,37 +1,74 @@
 const menu = [
     {
         name: "margherita",
-        price:"regular"
+        price: 50
     },
     {
         name: "farmhouse",
-        price:"regular"
+        price: 90
     },
     {
         name: "loaded",
-        price:"regular"
+        price:55
     },
     {
         name: "peppy",
-        price:"regular"
+        price:24
     },
     {
         name: "type 123",
-        price:"regular"
+        price: 41
     },
 ]
 
-const cash = 100;
+let cash = 100;
 const orderQ = [];
 
 function addANewPizza(pizzaParam){
     menu.push(pizzaParam)
 }
 
-const placeOrder =(pizzaObject) => {
-    menu.map(function(item){
-        if(pizzaObject.name === item.name){
+const placeOrder =(pizzaName) => {
 
+    const selected = menu.find(function(item){
+        if(item.name === pizzaName){
+            cash += item.price;
+            return("name" , pizzaName);
+            
+        }
+
+    });
+
+    const newOrder = {
+        id: new Date().getTime(),
+        pizzaName: selected.name,
+        pizzaPrice : selected.price,
+        status: "Ordered"
+    }
+    orderQ.push(newOrder);
+    console.log(newOrder);
+
+    // const selectedPizza = menu.map(function(item){
+    //     if(pizzaName === item.name){
+    //         orderQ.push(pizzaName)
+    //     }
+    //     return orderQ
+    // })
+
+    // console.log(selectedPizza)
+}
+
+placeOrder("peppy");
+console.log(cash);
+
+const completeOrder =(orderQ)=> {
+    const completedPizza = orderQ.find((item)=> {
+        if(orderQ === item.id){
+            orderQ.status = "Completed"
         }
     })
+
+    console.log("completedPizza", completedPizza)
 }
+
+completeOrder(orderQ);
